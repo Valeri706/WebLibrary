@@ -8,6 +8,8 @@ import { Providers } from "./providers";
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
+import {getServerSession} from "next-auth";
+import {SessionProvider} from "next-auth/react";
 
 export const metadata: Metadata = {
   title: {
@@ -27,7 +29,7 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;

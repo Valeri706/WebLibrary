@@ -23,7 +23,9 @@ public sealed class UserController(IUserRepository repository, IConfiguration co
         var token = new JwtSecurityToken(
             claims: [
                 new Claim("name",user.Name),
-                new Claim("id", user.Id.ToString())
+                new Claim("id", user.Id.ToString()),
+                new Claim("role", user.Role.ToString()),
+                new Claim("email", user.Email)
             ],
             expires: DateTime.UtcNow.Add(lifetime),
             notBefore: DateTime.UtcNow,
@@ -51,6 +53,7 @@ public sealed class UserController(IUserRepository repository, IConfiguration co
             {
                 Email = request.Email.ToLower(),
                 Name = request.Name,
+                Birth = request.DateOfBirth,
                 PasswordHash = Hash(request.Password)
             });
         
@@ -70,5 +73,18 @@ public sealed class UserController(IUserRepository repository, IConfiguration co
         }
 
         return Ok(new { token = GetJwt(user,TimeSpan.FromHours(1)) });
+    }
+    
+    [HttpGet]
+    [RequireRole(UserRole.Admin)]
+    public User[] GetRange(int offset = 0, int limit = 0)
+    {
+        var query = repository.Users.Skip(offset);
+        if (limit > 0)
+        {
+            query = query.Take(limit);
+        }
+
+        return query.ToArray();
     }
 }

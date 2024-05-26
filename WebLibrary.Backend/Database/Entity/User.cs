@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace WebLibrary.Backend.Database.Entity;
 
@@ -21,13 +22,17 @@ public sealed class User
     [MaxLength(128)]
     public required string Email { get; init; }
 
-    [Column("password")] 
+    [Column("password")]
     [MaxLength(128)]
-    public required string PasswordHash { get; init; }
+    [JsonIgnore]
+    public string PasswordHash { get; init; } = null!;
 
     [Column("name")] 
     [MaxLength(128)]
     public required string Name { get; init; }
+    
+    [Column("date_of_birth")] 
+    public DateOnly? Birth { get; init; }
 
     [Column("role")] 
     public UserRole Role { get; init; } = UserRole.User;

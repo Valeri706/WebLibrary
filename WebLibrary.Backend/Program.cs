@@ -23,6 +23,12 @@ internal static class Program
 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+        builder.Services.AddCors(o => o.AddPolicy("DefaultPolicy", o =>
+        {
+            o.WithOrigins("http://localhost:3000")
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        }));
         
         builder.Services.AddAuthentication(o =>
         {
@@ -60,6 +66,7 @@ internal static class Program
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
+        app.UseCors("DefaultPolicy");
 
         app.MapControllers();
 

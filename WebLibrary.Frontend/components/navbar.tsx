@@ -22,11 +22,20 @@ import { Library } from "lucide-react";
 
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
+import {signOut, useSession} from "next-auth/react";
+import {UserRole} from "@/types/userRole";
+import {useRouter} from "next/navigation";
 
 export const Navbar = () => {
-  const isLoggedIn = false;
+  const { data: session } = useSession();
+  const router = useRouter();
+  const avatarUrl = session?.user?.image ?? 
+      `https://ui-avatars.com/api/?name=${session?.user?.name?.replace(" ","+")}`
+    
+    console.log(session?.user)
 
-  return (
+  
+    return (
     <NextUINavbar maxWidth="xl" position="sticky">
       <NavbarContent>
         <NavbarMenuToggle className="sm:hidden" />
@@ -48,7 +57,7 @@ export const Navbar = () => {
 
       <NavbarContent as="div" justify="end">
         <ThemeSwitch />
-        {isLoggedIn ? (
+        {session ? (
           <Dropdown placement="bottom-end">
             <DropdownTrigger>
               <Avatar
@@ -56,20 +65,29 @@ export const Navbar = () => {
                 as="button"
                 className="transition-transform"
                 color="primary"
-                name="Jason Hughes"
+                name={session!.user!.name!}
                 size="sm"
-                src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                src={avatarUrl}
               />
             </DropdownTrigger>
             <DropdownMenu aria-label="Profile Actions" variant="flat">
               <DropdownItem key="profile" className="h-14 gap-2">
-                <p className="font-semibold">Signed in as</p>
-                <p className="font-semibold">zoey@example.com</p>
+                <p className="font-semibold">Увійшли як</p>
+                <p className="font-semibold">{session!.user!.email!}</p>
               </DropdownItem>
-              <DropdownItem key="books">My books</DropdownItem>
-              <DropdownItem key="settings">Settings</DropdownItem>
-              <DropdownItem key="logout" color="danger">
-                Log Out
+              <DropdownItem key="books">Мої книги</DropdownItem>
+              <DropdownItem key="settings" onClick={() => router.push("/profile")}>
+                      Налаштування
+              </DropdownItem>
+                { session.user.role === UserRole.admin ?
+                    <DropdownItem key="admin" onClick={() => router.push("/admin")}>
+                            Адмін-панель
+                    </DropdownItem>
+                    :
+                    undefined
+                }
+              <DropdownItem key="logout" color="danger" onClick={async () => await signOut()}>
+                Вийти
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
