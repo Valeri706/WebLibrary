@@ -118,12 +118,14 @@ export default function AdminCategories() {
                                 <div className="relative flex items-center justify-end gap-2">
                                     <Tooltip content="Редагувати категорію">
                                       <span className="text-lg text-default-400 cursor-pointer active:opacity-50"
+                                            role="button"
                                             onClick={() => {onMutate((e) => mutatePatch(e), row) } }>
                                         <EditIcon/>
                                       </span>
                                     </Tooltip>
                                     <Tooltip color="danger" content="Видалити категорію">
                                       <span className="text-lg text-danger cursor-pointer active:opacity-50"
+                                            role="button"
                                             onClick={() => {
                                                 setModalContent(
                                                     <ConfirmModal onDismiss={onClose}

@@ -45,7 +45,7 @@ export default function Profile() {
                 // @ts-ignore
                 const elements = e.currentTarget.elements as HTMLFormElement[]
                 setLoading(true)
-                await post({uri: "user/updatesettings", failMsg: "Виникла помилка", onSuccess:  () => {
+                await post({uri: "user/updatesettings", onSuccess:  () => {
                         toast.success('Профіль оновлено', toastSuccess())
                         setRefetch(prev => !prev)
                 },
@@ -62,7 +62,7 @@ export default function Profile() {
                     type="email"
                 />
     
-                <h3 className="text-default-500 text-small my-3 ml-2">Ваше ім'я</h3>
+                <h3 className="text-default-500 text-small my-3 ml-2">Ваше ім&apos;я</h3>
                 <Input
                     isRequired
                     label="Ім'я"

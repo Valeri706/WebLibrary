@@ -5,17 +5,23 @@ import { Link } from "@nextui-org/link";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { Card, CardBody } from "@nextui-org/card";
-import React, {FormEvent, useState} from "react";
+import React, {FormEvent, Suspense, useState} from "react";
 import Image from "next/image";
 import { DatePicker } from "@nextui-org/date-picker";
 import { getLocalTimeZone, today } from "@internationalized/date";
 import { useRouter, useSearchParams} from "next/navigation";
 import { signIn } from "next-auth/react";
 import { post } from "@/lib/apiService";
-import {toast} from "sonner";
-import {toastSuccess} from "@/components/primitives";
 
-export default function Auth() {
+export default function Auth ()  {
+  return (
+      <Suspense>
+        <AuthComponent />
+      </Suspense>
+  )
+}
+
+const AuthComponent = () => {
   const router = useRouter()
   const params = useSearchParams();
   const [signupError, setSignupError] = useState("")

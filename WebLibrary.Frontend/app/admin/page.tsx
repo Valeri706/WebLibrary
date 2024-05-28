@@ -97,7 +97,9 @@ export default function Admin() {
                             </User>
                         </TableCell>
                         <TableCell>
+                            {/*@ts-ignore*/}
                             <Chip className="capitalize" color={userRole[row.role].color} size="sm" variant="flat">
+                                {/*@ts-ignore*/}
                                 {userRole[row.role].name}
                             </Chip>
                         </TableCell>
@@ -106,6 +108,7 @@ export default function Admin() {
                             <div className="relative flex items-center justify-end gap-2">
                                 <Tooltip content="Edit user">
                                   <span className="text-lg text-default-400 cursor-pointer active:opacity-50"
+                                        role="button"
                                         onClick={() => {
                                             setModalContent(
                                                 <>
@@ -125,7 +128,7 @@ export default function Admin() {
                                                             defaultValue={row.name} 
                                                             placeholder="Введіть нове ім'я"
                                                         />
-                                                        <Select
+                                                        <Select /*@ts-ignore*/
                                                             label="Роль" defaultSelectedKeys={[userRole[row.role].name]}
                                                             placeholder="Оберіть нову роль"
                                                         >
@@ -154,6 +157,7 @@ export default function Admin() {
                                 </Tooltip>
                                 <Tooltip color="danger" content="Delete user">
                                   <span className="text-lg text-danger cursor-pointer active:opacity-50"
+                                        role="button"
                                         onClick={() => {
                                             setModalContent(<ConfirmModal onDismiss={onClose} 
                                                                           onConfirm={() => mutateRemove(row.id)}

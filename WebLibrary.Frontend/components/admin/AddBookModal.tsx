@@ -47,7 +47,8 @@ export const AddBookModal: FC<IAddBookModalProps> = ({ refetch ,onClose }) => {
                       isRequired
                       placeholder="Введіть опис книги"
             />
-            <Autocomplete isRequired 
+            <Autocomplete isRequired
+                            /*@ts-ignore*/
                           onSelectionChange={setAuthorId}
                           defaultItems={authorData ?? []}
                           label="Автор книги"
@@ -68,6 +69,7 @@ export const AddBookModal: FC<IAddBookModalProps> = ({ refetch ,onClose }) => {
                    placeholder="URL зображення"
             />
             <Autocomplete
+                /*@ts-ignore*/
                             onSelectionChange={setCategoryId}
                           defaultItems={categoryData ?? []}
                           label="Категорія"

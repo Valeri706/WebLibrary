@@ -60,6 +60,7 @@ export default function Books() {
               type="search"
           />
           <div className="flex flex-col sm:grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))] my-2 gap-2">
+              {/*@ts-ignore*/}
               {session?.user?.role === UserRole.admin &&
                   <Card
                       isBlurred
@@ -67,6 +68,7 @@ export default function Books() {
                       shadow="sm"
                   >
                       <div className="flex items-center justify-center cursor-pointer w-full h-full"
+                           role="button"
                            onClick={onOpen}>
                           <Plus size={80}/>
                       </div>

@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { IconSvgProps } from "@/types";
 
-export const EditIcon = (props) => (
+export const EditIcon = (props: any) => (
     <svg
         aria-hidden="true"
         fill="none"
@@ -40,7 +40,7 @@ export const EditIcon = (props) => (
     </svg>
 );
 
-export const DeleteIcon = (props) => (
+export const DeleteIcon = (props: any) => (
     <svg
         aria-hidden="true"
         fill="none"

@@ -154,6 +154,7 @@ export default function AdminAuthors() {
                                 <div className="relative flex items-center justify-end gap-2">
                                     <Tooltip content="Редагувати автора">
                                       <span className="text-lg text-default-400 cursor-pointer active:opacity-50"
+                                            role="button"
                                       onClick={() => onMutate((o) => {
                                           replaceEmptyStrings(o)
                                           mutatePatch(o)
@@ -163,6 +164,7 @@ export default function AdminAuthors() {
                                     </Tooltip>
                                     <Tooltip color="danger" content="Видалити автора">
                                       <span className="text-lg text-danger cursor-pointer active:opacity-50"
+                                            role="button"
                                             onClick={() => {
                                                 setModalContent(
                                                     <ConfirmModal onDismiss={onClose}

@@ -78,6 +78,7 @@ export default function Page({ params }: { params: { id: string } }) {
                             </Chip>
                         </Tooltip>
                     }
+                    {/*@ts-ignore*/}
                     { session?.user.role === UserRole.admin &&
                         <Chip onClick={onOpen}
                             endContent={<DeleteIcon size={18} />}

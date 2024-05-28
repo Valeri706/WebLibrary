@@ -79,12 +79,11 @@ export const Navbar = () => {
               <DropdownItem key="settings" onClick={() => router.push("/profile")}>
                       Налаштування
               </DropdownItem>
-                { session.user.role === UserRole.admin ?
+              {/*@ts-ignore*/}
+                {   session.user.role === UserRole.admin ?
                     <DropdownItem key="admin" onClick={() => router.push("/admin")}>
-                            Адмін-панель
-                    </DropdownItem>
-                    :
-                    undefined
+                      Адмін-панель
+                    </DropdownItem> : <></>
                 }
               <DropdownItem key="logout" color="danger" onClick={async () => await signOut()}>
                 Вийти
