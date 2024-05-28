@@ -1,6 +1,5 @@
 import {getToken} from "next-auth/jwt";
 import {NextResponse} from "next/server";
-import {UserRole} from "@/types/userRole";
 
 export { default } from 'next-auth/middleware'
 
