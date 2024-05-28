@@ -2,7 +2,7 @@ import { getSession, signOut } from "next-auth/react";
 import {toast} from "sonner";
 import {toastFail, toastSuccess} from "@/components/primitives";
 
-const apiUrl = "http://localhost:5214/api/";
+const apiUrl = process.env.BACKEND_URL + "/api/";
 
 interface IRequestProps {
   uri: string;
