@@ -10,6 +10,7 @@ import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
 import {getServerSession} from "next-auth";
 import {SessionProvider} from "next-auth/react";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: {
@@ -44,6 +45,7 @@ export default async function RootLayout({
         )}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
+          <Toaster/>
           <div className="relative flex flex-col h-screen">
             <Navbar />
             <main className="container mx-auto max-w-7xl pt-8 px-6 flex-grow">

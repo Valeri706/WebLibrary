@@ -12,6 +12,8 @@ import { getLocalTimeZone, today } from "@internationalized/date";
 import { useRouter, useSearchParams} from "next/navigation";
 import { signIn } from "next-auth/react";
 import { post } from "@/lib/apiService";
+import {toast} from "sonner";
+import {toastSuccess} from "@/components/primitives";
 
 export default function Auth() {
   const router = useRouter()
@@ -34,7 +36,7 @@ export default function Auth() {
     });
     
     if(!response || response.ok) {
-      router.push("/")
+      router.refresh()
       return;
     } 
     
@@ -67,12 +69,12 @@ export default function Auth() {
             }
           },
           onSuccess: async o => {
-            await signIn("credentials",{ token: o.token })
+            await signIn("credentials",{ token: (await o.json()).token })
           }
         },
         {
           name: (e.currentTarget.elements[0] as HTMLFormElement).value as string,
-          dateOfBirth: (e.currentTarget.elements[1] as HTMLFormElement).value || undefined,
+          birth: (e.currentTarget.elements[1] as HTMLFormElement).value || undefined,
           email: (e.currentTarget.elements[3] as HTMLFormElement).value as string,
           password: (e.currentTarget.elements[4] as HTMLFormElement).value as string,
         },
@@ -106,7 +108,7 @@ export default function Auth() {
               /* @ts-ignore*/
               onSelectionChange={setSelected}
             >
-              <Tab key="login" title="Login">
+              <Tab key="login" title="Login" >
                 <form onSubmit={handleLogin} className="flex flex-col gap-4">
                   <Input
                       isRequired

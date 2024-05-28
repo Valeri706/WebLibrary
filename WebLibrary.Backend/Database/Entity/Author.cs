@@ -11,14 +11,14 @@ public sealed class Author
     public int Id { get; init; }
     
     [Column("name")]
-    public required string Name { get; init; }
+    public string Name { get; init; }
     
     [Column("biography")]
-    public required string Biography { get; init; }
+    public string? Biography { get; init; }
     
     [Column("birth_date")]
-    public DateTime? BirthDate { get; init; }
+    public DateOnly? BirthDate { get; init; }
     
     [Column("death_date")]
-    public DateTime? DeathDate { get; init; }
+    public DateOnly? DeathDate { get; init; }
 }

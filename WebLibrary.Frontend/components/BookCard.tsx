@@ -8,15 +8,18 @@ import { Button } from "@nextui-org/button";
 import { button as buttonStyles } from "@nextui-org/theme";
 
 import { cutIfLonger } from "@/lib/tools";
+import {TypeBook} from "@/types/EntityTypes";
+import Link from "next/link";
+import {useRouter} from "next/navigation";
 
 interface IBookCardProps {
-  imageUrl: string;
-  name: string;
-  description: string;
+  book: TypeBook,
+  withLike?: boolean
 }
 
-const BookCard: FC<IBookCardProps> = ({ imageUrl, name, description }) => {
+const BookCard: FC<IBookCardProps> = ({ book, withLike = true }) => {
   const [liked, setLiked] = React.useState(false);
+  const router = useRouter()
 
   return (
     <Card
@@ -32,35 +35,41 @@ const BookCard: FC<IBookCardProps> = ({ imageUrl, name, description }) => {
                 alt="Album cover"
                 className="object-cover hover:scale-125"
                 shadow="md"
-                src={imageUrl}
+                src={book.coverImageUrl ? book.coverImageUrl : "https://i.pinimg.com/736x/5b/78/a5/5b78a51239536a81d6b84aae26ac8e99.jpg"}
                 width={120}
               />
             </div>
 
             <div className="mt-4">
-              <p className="font-bold text-foreground mb-3 pr-5">{name}</p>
+              <p className="font-bold text-foreground mb-3 pr-5">{book.title}</p>
               <p className="text-xs font-light dark:text-foreground/70 ">
-                {cutIfLonger(description, 170)}
+                {cutIfLonger(book.summary, 170)}
               </p>
             </div>
 
-            <Button
-              isIconOnly
-              className="text-default-900/60 data-[hover]:bg-foreground/10
+            {withLike &&
+                <Button
+                    isIconOnly
+                    className="text-default-900/60 data-[hover]:bg-foreground/10
               absolute right-3 top-3"
-              radius="full"
-              variant="light"
-              onPress={() => setLiked((v) => !v)}
-            >
-              <HeartIcon
-                className={liked ? "[&>path]:stroke-transparent" : ""}
-                fill={liked ? "currentColor" : "none"}
-              />
-            </Button>
+                    radius="full"
+                    variant="light"
+                    onPress={() => setLiked((v) => !v)}
+                >
+                  <HeartIcon
+                      className={liked ? "[&>path]:stroke-transparent" : ""}
+                      fill={liked ? "currentColor" : "none"}
+                  />
+                </Button>
+            }
+
           </div>
 
           <div className="w-full flex justify-end mt-3">
-            <Button
+            <Button onClick={() => {
+              router.push("/books/" + book.id)
+              router.refresh()
+            }}
               className={buttonStyles({
                 variant: "bordered",
                 radius: "sm",

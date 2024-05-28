@@ -31,9 +31,6 @@ export const Navbar = () => {
   const router = useRouter();
   const avatarUrl = session?.user?.image ?? 
       `https://ui-avatars.com/api/?name=${session?.user?.name?.replace(" ","+")}`
-    
-    console.log(session?.user)
-
   
     return (
     <NextUINavbar maxWidth="xl" position="sticky">
@@ -75,7 +72,10 @@ export const Navbar = () => {
                 <p className="font-semibold">Увійшли як</p>
                 <p className="font-semibold">{session!.user!.email!}</p>
               </DropdownItem>
-              <DropdownItem key="books">Мої книги</DropdownItem>
+              <DropdownItem key="books" onClick={() => {
+                router.push("/books/collection")
+                router.refresh()
+              }}>Мої книги</DropdownItem>
               <DropdownItem key="settings" onClick={() => router.push("/profile")}>
                       Налаштування
               </DropdownItem>

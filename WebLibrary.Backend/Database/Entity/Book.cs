@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace WebLibrary.Backend.Database.Entity;
 
 [Table("book")]
-public sealed class Book
+public class Book
 {
     [Key]
     [Column("id")]
@@ -14,7 +14,7 @@ public sealed class Book
     public required string Title { get; init; }
 
     [Column("published_date")] 
-    public required DateTime PublishedDate { get; init; }
+    public required DateOnly PublishedDate { get; init; }
     
     [Column("summary")]
     public required string Summary { get; init; }
@@ -26,5 +26,16 @@ public sealed class Book
     public required int AuthorId { get; init; }
     
     [Column("category_id")]
-    public required int CategoryId { get; init; }
+    public  int? CategoryId { get; init; }
+}
+
+public sealed class BookWithInfo : Book
+{
+    [Column("author_name")]
+    public required string AuthorName { get; init; }
+    [Column("in_library")]
+    public required bool InLibrary { get; init; }
+    
+    [Column("category_name")]
+    public  string? CategoryName { get; init; }
 }

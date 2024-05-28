@@ -85,6 +85,81 @@ public sealed class UserController(IUserRepository repository, IConfiguration co
             query = query.Take(limit);
         }
 
-        return query.ToArray();
+        return query.OrderBy(o => o.RegisteredAt).ToArray();
+    }
+
+    [HttpPost]
+    [RequireRole(UserRole.Admin)]
+    public IActionResult Patch(UserPatchRequest entity)
+    {
+        if (!Enum.TryParse(entity.Role, out UserRole role))
+        {
+            return BadRequest();
+        }
+        
+        var user = repository.Users.Find(entity.Id);
+        if (user == null)
+        {
+            return BadRequest();
+        }
+        
+        user.Role = role;
+        user.Name = entity.Name;
+
+        if (!string.IsNullOrEmpty(entity.Password))
+        {
+            user.PasswordHash = Hash(entity.Password);
+        }
+            
+        repository.Update(user,true);
+        return Ok();
+    }
+
+    [HttpPost]
+    [Authorize]
+    public IActionResult UpdatePassword([FromBody] UserUpdatePasswordRequest request)
+    {
+        if (string.IsNullOrEmpty(request.CurrentPassword))
+            return BadRequest();
+
+        var user = repository.Users.Find(int.Parse(HttpContext.User.Claims.First(o => o.Type == "id").Value));
+
+            
+        if (Hash(request.CurrentPassword) != user!.PasswordHash)
+            return Forbid();
+
+
+        if (string.IsNullOrEmpty(request.NewPassword))
+            return BadRequest("New password is empty");
+        
+        user.PasswordHash = Hash(request.NewPassword);
+        repository.Update(user, true);
+        return Ok();
+    }
+
+    [HttpPost]
+    [Authorize]
+    public IActionResult UpdateSettings([FromBody] UserUpdateInfoRequest request)
+    {
+        var user = repository.Users.Find(int.Parse(HttpContext.User.Claims.First(o => o.Type == "id").Value));
+
+        if (string.IsNullOrEmpty(request.NewName))
+            return BadRequest();
+        
+        user!.Name = request.NewName;
+        user.Birth = request.NewBirth;
+        repository.Update(user, true);
+        return Ok();
+    }
+    
+    [HttpGet]
+    [Authorize]
+    public User Info()
+    {
+        var user = repository.Users.Find(
+            int.Parse(HttpContext.User.Claims.First(o => o.Type == "id").Value)
+        );
+        user!.PasswordHash = "";
+        return user;
     }
 }

@@ -53,7 +53,7 @@ export default function Home() {
             <Snippet hideCopyButton hideSymbol variant="flat">
           <span className="sm:block flex flex-col justify-center items-center gap-1">
             Або ж перегляньте нашу бібліотеку{" "}
-              <Code className="cursor-pointer" color="primary">
+              <Code as={Link} className="cursor-pointer" color="primary" href="/books">
               прямо зараз
             </Code>
           </span>

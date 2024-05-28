@@ -1,5 +1,20 @@
 import { tv } from "tailwind-variants";
 
+export const toastSuccess = () => {
+  return  {
+    classNames: {
+      toast: 'bg-success border-transparent',
+    },
+  }
+}
+export const toastFail = () => {
+  return  {
+    classNames: {
+      toast: 'bg-danger border-transparent',
+    },
+  }
+}
+
 export const title = tv({
   base: "tracking-tight inline font-semibold",
   variants: {

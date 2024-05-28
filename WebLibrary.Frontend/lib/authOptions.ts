@@ -32,7 +32,6 @@ export const authOptions: NextAuthOptions = {
           );
 
           if (!res.ok) {
-            console.log("failed")
             return null;
           }
 
@@ -53,9 +52,6 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  pages: {
-    signIn: "/auth",
-  },
   callbacks: {
     jwt: async ({ token, user }) => {
       // user is only available the first time a user signs in authorized

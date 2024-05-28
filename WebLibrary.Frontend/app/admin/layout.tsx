@@ -1,4 +1,6 @@
 import {TabPanel} from "@/components/admin/TabPanel";
+import {Divider} from "@nextui-org/divider";
+import React from "react";
 
 export default function AdminLayout({children} : {
     children: React.ReactNode;
@@ -7,6 +9,7 @@ export default function AdminLayout({children} : {
         <div>
             <TabPanel />
             {children}
+            <Divider className="my-4"/>
         </div>
     )
 }

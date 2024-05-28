@@ -9,6 +9,7 @@ export async function middleware(req: any) {
 
     const { pathname } = req.nextUrl;
     
+    
     if(!token) {
         if(pathname.includes('/api/auth') || pathname === '/auth' || pathname === "/books") {
             return NextResponse.next()
@@ -30,5 +31,5 @@ export async function middleware(req: any) {
 }
 
 export const config = {
-    matcher: ['/profile/:path*', '/admin/:path*', '/auth'], 
+    matcher: ['/profile/:path*', '/admin/:path*', '/auth', '/books/:path*'], 
 };

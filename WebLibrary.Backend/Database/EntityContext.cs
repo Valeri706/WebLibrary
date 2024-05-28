@@ -9,6 +9,7 @@ public class EntityContext(DbContextOptions<EntityContext> options, IConfigurati
     public DbSet<Author> Authors { get; set; } = null!;
     public DbSet<Category> Categories { get; set; } = null!;
     public DbSet<Book> Books { get; set; } = null!;
+    public DbSet<UserBook> UserBooks { get; set; } = null!;
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

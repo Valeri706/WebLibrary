@@ -25,17 +25,17 @@ public sealed class User
     [Column("password")]
     [MaxLength(128)]
     [JsonIgnore]
-    public string PasswordHash { get; init; } = null!;
+    public string PasswordHash { get; set; } = null!;
 
     [Column("name")] 
     [MaxLength(128)]
-    public required string Name { get; init; }
+    public required string Name { get; set; }
     
     [Column("date_of_birth")] 
-    public DateOnly? Birth { get; init; }
+    public DateOnly? Birth { get; set; }
 
     [Column("role")] 
-    public UserRole Role { get; init; } = UserRole.User;
+    public UserRole Role { get; set; } = UserRole.User;
 
     [Column("registered_at")] 
     [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
