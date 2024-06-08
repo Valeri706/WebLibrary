@@ -16,7 +16,7 @@ export const authOptions: NextAuthOptions = {
       authorize: async (credentials) => {
         if (!credentials) {
           return null;
-        }
+        } 
         
         // @ts-ignore
         let token: string = credentials.token;

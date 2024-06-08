@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 import {
@@ -31,8 +32,13 @@ export const Navbar = () => {
   const router = useRouter();
   const avatarUrl = session?.user?.image ?? 
       `https://ui-avatars.com/api/?name=${session?.user?.name?.replace(" ","+")}`
+    
+    const adminDropdown =  session?.user?.role! === UserRole.admin &&
+        <DropdownItem key="admin" onClick={() => router.push("/admin")}>
+            Адмін-панель
+        </DropdownItem>
   
-    return (
+  return (
     <NextUINavbar maxWidth="xl" position="sticky">
       <NavbarContent>
         <NavbarMenuToggle className="sm:hidden" />
@@ -70,7 +76,7 @@ export const Navbar = () => {
             <DropdownMenu aria-label="Profile Actions" variant="flat">
               <DropdownItem key="profile" className="h-14 gap-2">
                 <p className="font-semibold">Увійшли як</p>
-                <p className="font-semibold">{session!.user!.email!}</p>
+                <p className="font-semibold">{session!.user!.email}</p>
               </DropdownItem>
               <DropdownItem key="books" onClick={() => {
                 router.push("/books/collection")
@@ -79,11 +85,11 @@ export const Navbar = () => {
               <DropdownItem key="settings" onClick={() => router.push("/profile")}>
                       Налаштування
               </DropdownItem>
-              {/*@ts-ignore*/}
-                {   session.user.role === UserRole.admin ?
+                { 
+                  session.user.role === UserRole.admin &&
                     <DropdownItem key="admin" onClick={() => router.push("/admin")}>
                       Адмін-панель
-                    </DropdownItem> : <></>
+                    </DropdownItem>
                 }
               <DropdownItem key="logout" color="danger" onClick={async () => await signOut()}>
                 Вийти
