@@ -44,7 +44,7 @@ export const Navbar = () => {
         <NavbarMenuToggle className="sm:hidden" />
         <NavbarBrand>
           <Library className="mr-2" size={30} />
-          <p className="font-bold text-inherit hidden sm:block">Your library</p>
+          <p className="font-bold text-inherit hidden sm:block">Your </p>
         </NavbarBrand>
       </NavbarContent>
 
